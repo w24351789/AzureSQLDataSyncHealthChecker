@@ -1165,7 +1165,7 @@ function GetUIHistory {
         INNER JOIN [dss].[userdatabase] AS ud WITH (NOLOCK) on ui.databaseid = ud.id
         WHERE ui.[detailEnumId] != 'SyncSuccess' AND ui.[detailEnumId] != 'SyncSuccessWithWarning' AND ui.[detailEnumId] NOT LIKE '%Failure'
         AND ud.[server] = '" + $Server + "' AND ud.[database] = '" + $Database + "')
-        SELECT TOP(30) [completionTime],SyncGroupName,OperationResult,Seconds,Upload,UploadFailed AS UpFailed,Download,DownloadFailed AS DFailed,Error
+        SELECT TOP(3000) [completionTime],SyncGroupName,OperationResult,Seconds,Upload,UploadFailed AS UpFailed,Download,DownloadFailed AS DFailed,Error
         FROM UIHistory_CTE ORDER BY [completionTime] DESC"
 
         $SyncDbCommand.CommandTimeout = 120
@@ -1325,7 +1325,7 @@ function GetUIHistoryForSyncDBValidator {
         INNER JOIN [dss].[syncgroup] AS sg WITH (NOLOCK) on ui.syncgroupId = sg.id
         INNER JOIN [dss].[userdatabase] AS ud WITH (NOLOCK) on ui.databaseid = ud.id
         WHERE ui.[detailEnumId] != 'SyncSuccess' AND ui.[detailEnumId] != 'SyncSuccessWithWarning' AND ui.[detailEnumId] NOT LIKE '%Failure')
-        SELECT TOP(50) [completionTime],SyncGroupName,OperationResult,Seconds,Upload,UploadFailed AS UpFailed,Download,DownloadFailed AS DFailed,Error
+        SELECT TOP(3000) [completionTime],SyncGroupName,OperationResult,Seconds,Upload,UploadFailed AS UpFailed,Download,DownloadFailed AS DFailed,Error
         FROM UIHistory_CTE ORDER BY [completionTime] DESC"
 
         $SyncDbCommand.CommandTimeout = 120
